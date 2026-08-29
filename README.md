@@ -10,7 +10,7 @@ instant letter grade, a plain-English breakdown of the score, and an exportable 
 ## Build Progress
 
 - [x] Project scaffold and documentation structure
-- [ ] Brand and UI system
+- [x] Brand and UI system
 - [ ] Interface assembly
 - [ ] Scoring engine
 - [ ] Governance matrix (CIS Controls v8)
