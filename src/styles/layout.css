@@ -1,0 +1,161 @@
+/* ThirdPartyTrust — page layout, built on the tokens from Phase B */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper-white);
+  color: var(--ink-black);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+.site-header {
+  background: var(--ink-black);
+  color: var(--paper-white);
+  padding: 1.5rem 2rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.wordmark span {
+  color: var(--gold-signal);
+}
+
+.tagline {
+  margin: 0.25rem 0 0;
+  color: var(--fog-gray);
+  font-size: 0.95rem;
+}
+
+.assessment {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.assessment-form h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.form-intro {
+  color: var(--slate-gray);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.field-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+}
+
+.field-group legend,
+.field-group label:not(.option) {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.field-group input[type="text"],
+.field-group select {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--fog-gray);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400;
+  margin-bottom: 0.35rem;
+}
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold-signal);
+  outline-offset: 2px;
+}
+
+.primary-action {
+  background: var(--ink-black);
+  color: var(--paper-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.primary-action:hover {
+  background: var(--charcoal);
+}
+
+.result-panel {
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+}
+
+.result-seal {
+  background: var(--ink-black);
+  border: 2px solid var(--gold-signal);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--paper-white);
+}
+
+.seal-status {
+  font-family: var(--font-data);
+  color: var(--gold-signal);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem;
+}
+
+.seal-empty-copy {
+  color: var(--fog-gray);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.site-footer {
+  text-align: center;
+  color: var(--slate-gray);
+  font-size: 0.85rem;
+  padding: 1.5rem;
+}
+
+@media (max-width: 720px) {
+  .assessment {
+    grid-template-columns: 1fr;
+  }
+  .result-panel {
+    position: static;
+  }
+}
