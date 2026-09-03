@@ -144,6 +144,22 @@ button:focus-visible {
   margin: 0;
 }
 
+.seal-grade {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--gold-signal);
+  margin: 0;
+  line-height: 1;
+}
+
+.seal-score {
+  font-family: var(--font-data);
+  color: var(--fog-gray);
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
+
 .site-footer {
   text-align: center;
   color: var(--slate-gray);
