@@ -14,7 +14,7 @@ compliance task sheet — all of it running in the browser, with nothing sent to
 - [x] Project scaffold and documentation structure
 - [x] Brand and UI system
 - [x] Interface assembly
-- [ ] Scoring engine
+- [x] Scoring engine
 - [ ] Governance matrix (CIS Controls v8)
 - [ ] Export and reporting
 - [ ] Documentation and polish
