@@ -17,7 +17,7 @@ compliance task sheet — all of it running in the browser, with nothing sent to
 - [x] Brand and UI system
 - [x] Interface assembly
 - [x] Scoring engine
-- [ ] Governance matrix (CIS Controls v8)
+- [x] Governance matrix (CIS Controls v8)
 - [ ] Export and reporting
 - [ ] Documentation and polish
 - [ ] Testing evidence
@@ -29,4 +29,6 @@ Vanilla JavaScript, CSS custom properties, hosted on GitHub Pages.
 ## Compliance framework
 
 Scoring logic is mapped to CIS Critical Security Controls v8, primarily Control 15
-(Service Provider Management).
+(Service Provider Management), with additional weighting tied to Control 3 (Data
+Protection) and Control 6 (Access Control Management). Every grade displays its
+per-category breakdown with the specific control it reflects.
