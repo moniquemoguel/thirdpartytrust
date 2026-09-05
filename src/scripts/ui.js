@@ -3,6 +3,7 @@
 const form = document.getElementById("assessment-form");
 const button = document.getElementById("run-assessment");
 const seal = document.querySelector(".result-seal");
+const panel = document.querySelector(".result-panel");
 
 function getSelectedValue(name) {
   const checked = form.querySelector(`input[name="${name}"]:checked`);
@@ -13,7 +14,13 @@ function getCheckedValues(name) {
   return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map((el) => el.value);
 }
 
+function clearBreakdown() {
+  const existing = panel.querySelector(".result-breakdown");
+  if (existing) existing.remove();
+}
+
 function showIncomplete() {
+  clearBreakdown();
   seal.textContent = "";
   seal.classList.add("is-empty");
 
@@ -26,6 +33,36 @@ function showIncomplete() {
   copy.textContent = "Answer every question to generate a grade.";
 
   seal.append(status, copy);
+}
+
+function renderBreakdown(result) {
+  clearBreakdown();
+
+  const breakdown = document.createElement("div");
+  breakdown.className = "result-breakdown";
+
+  const heading = document.createElement("p");
+  heading.className = "breakdown-heading";
+  heading.textContent = result.framework + " — v" + result.matrixVersion;
+  breakdown.append(heading);
+
+  result.breakdown.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "breakdown-row";
+
+    const line = document.createElement("p");
+    line.className = "breakdown-line";
+    line.textContent = item.label + ": " + item.points + "/" + item.maxPoints;
+
+    const citation = document.createElement("p");
+    citation.className = "breakdown-citation";
+    citation.textContent = item.citation;
+
+    row.append(line, citation);
+    breakdown.append(row);
+  });
+
+  panel.append(breakdown);
 }
 
 function showResult(vendorName, result) {
@@ -45,6 +82,7 @@ function showResult(vendorName, result) {
   score.textContent = result.score + " / 100";
 
   seal.append(grade, label, score);
+  renderBreakdown(result);
 }
 
 button.addEventListener("click", () => {
