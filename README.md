@@ -2,6 +2,8 @@
 
 A browser-only vendor risk scoring tool for small businesses.
 
+**Live demo:** https://moniquemoguel.github.io/thirdpartytrust/src/index.html
+
 ## What it does
 
 Small businesses adopt new software constantly, usually without any way to judge what
