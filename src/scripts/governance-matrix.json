@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "framework": "CIS Critical Security Controls v8",
+  "categories": {
+    "dataSensitivity": {
+      "citation": "CIS Control 3 — Data Protection",
+      "maxPoints": 30,
+      "values": {
+        "public": 30,
+        "internal": 22,
+        "customer": 12,
+        "regulated": 4
+      }
+    },
+    "permissionScope": {
+      "citation": "CIS Control 6 — Access Control Management",
+      "maxPoints": 25,
+      "deductions": {
+        "read": 3,
+        "write": 6,
+        "admin": 12,
+        "third-party": 10
+      }
+    },
+    "encryption": {
+      "citation": "CIS Control 3 — Data Protection",
+      "maxPoints": 25,
+      "values": {
+        "full": 25,
+        "partial": 12,
+        "unknown": 0
+      }
+    },
+    "breachHistory": {
+      "citation": "CIS Control 15 — Service Provider Management",
+      "maxPoints": 20,
+      "values": {
+        "none": 20,
+        "disclosed": 10,
+        "undisclosed": 0
+      }
+    }
+  }
+}
