@@ -26,6 +26,9 @@ compliance task sheet — all of it running in the browser, with nothing sent to
 
 Vanilla JavaScript, CSS custom properties, hosted on GitHub Pages.
 
+### Notes 09/06
+Awesome, I can see the work here. Let me know if you needed any suggestions or anything else. Thanks! 
+
 ## Compliance framework
 
 Scoring logic is mapped to CIS Critical Security Controls v8, primarily Control 15
