@@ -20,7 +20,7 @@
   <main class="assessment">
     <section class="assessment-form" aria-labelledby="form-heading">
       <h1 id="form-heading">Assess a vendor</h1>
-      <p class="form-intro">Answer a few questions about the vendor. Nothing here leaves your browser.</p>
+      <p class="form-intro">Answer each question about the vendor. Nothing here leaves your browser. This assessment follows CIS Critical Security Controls v8.1.2, Implementation Group 1.</p>
 
       <form id="assessment-form">
         <div class="field-group">
@@ -41,36 +41,245 @@
           </select>
         </div>
 
-        <fieldset class="field-group">
-          <legend>What kind of data does it touch?</legend>
-          <label class="option"><input type="radio" name="data-sensitivity" value="public"> Public information only</label>
-          <label class="option"><input type="radio" name="data-sensitivity" value="internal"> Internal business data</label>
-          <label class="option"><input type="radio" name="data-sensitivity" value="customer"> Customer or employee records</label>
-          <label class="option"><input type="radio" name="data-sensitivity" value="regulated"> Regulated data (health, financial, etc.)</label>
+        <fieldset class="field-group family-group">
+          <legend>Data Protection & Privacy</legend>
+          <p class="family-caption">CIS Control 3 — Data Protection</p>
+          <div class="safeguard-item">
+            <p class="safeguard-title">3.1 — Establish and Maintain a Data Management Process</p>
+            <label class="option"><input type="radio" name="3.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="3.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="3.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">3.2 — Establish and Maintain a Data Inventory</p>
+            <label class="option"><input type="radio" name="3.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="3.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="3.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">3.3 — Configure Data Access Control Lists</p>
+            <label class="option"><input type="radio" name="3.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="3.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="3.3" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">3.4 — Enforce Data Retention</p>
+            <label class="option"><input type="radio" name="3.4" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="3.4" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="3.4" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">3.5 — Securely Dispose of Data</p>
+            <label class="option"><input type="radio" name="3.5" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="3.5" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="3.5" value="none"> Not implemented</label>
+          </div>
         </fieldset>
 
-        <fieldset class="field-group">
-          <legend>What access does it ask for?</legend>
-          <label class="option"><input type="checkbox" name="permission-scope" value="read"> Reads existing data</label>
-          <label class="option"><input type="checkbox" name="permission-scope" value="write"> Creates or edits data</label>
-          <label class="option"><input type="checkbox" name="permission-scope" value="admin"> Admin-level or account control</label>
-          <label class="option"><input type="checkbox" name="permission-scope" value="third-party"> Shares data with other services</label>
+        <fieldset class="field-group family-group">
+          <legend>Access & Identity Management</legend>
+          <p class="family-caption">CIS Controls 5 & 6 — Account Management, Access Control Management</p>
+          <div class="safeguard-item">
+            <p class="safeguard-title">5.1 — Establish and Maintain an Inventory of Accounts</p>
+            <label class="option"><input type="radio" name="5.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="5.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="5.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">5.2 — Use Unique Passwords</p>
+            <label class="option"><input type="radio" name="5.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="5.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="5.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">5.3 — Disable Dormant Accounts</p>
+            <label class="option"><input type="radio" name="5.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="5.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="5.3" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">5.4 — Restrict Administrator Privileges to Dedicated Administrator Accounts</p>
+            <label class="option"><input type="radio" name="5.4" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="5.4" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="5.4" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">6.1 — Establish an Access Granting Process</p>
+            <label class="option"><input type="radio" name="6.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="6.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="6.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">6.2 — Establish an Access Revoking Process</p>
+            <label class="option"><input type="radio" name="6.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="6.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="6.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">6.3 — Require MFA for Externally-Exposed Applications</p>
+            <label class="option"><input type="radio" name="6.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="6.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="6.3" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">6.4 — Require MFA for Remote Network Access</p>
+            <label class="option"><input type="radio" name="6.4" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="6.4" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="6.4" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">6.5 — Require MFA for Administrative Access</p>
+            <label class="option"><input type="radio" name="6.5" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="6.5" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="6.5" value="none"> Not implemented</label>
+          </div>
         </fieldset>
 
-        <fieldset class="field-group">
-          <legend>Encryption</legend>
-          <label class="option"><input type="radio" name="encryption" value="full"> Encrypted at rest and in transit</label>
-          <label class="option"><input type="radio" name="encryption" value="partial"> Encrypted in transit only</label>
-          <label class="option"><input type="radio" name="encryption" value="unknown"> Not specified or unknown</label>
+        <fieldset class="field-group family-group">
+          <legend>Vulnerability & Threat Management</legend>
+          <p class="family-caption">CIS Controls 7 & 10 — Continuous Vulnerability Management, Malware Defenses</p>
+          <div class="safeguard-item">
+            <p class="safeguard-title">7.1 — Establish and Maintain a Vulnerability Management Process</p>
+            <label class="option"><input type="radio" name="7.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="7.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="7.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">7.2 — Establish and Maintain a Remediation Process</p>
+            <label class="option"><input type="radio" name="7.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="7.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="7.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">7.3 — Perform Automated Operating System Patch Management</p>
+            <label class="option"><input type="radio" name="7.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="7.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="7.3" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">10.1 — Deploy and Maintain Anti-Malware Software</p>
+            <label class="option"><input type="radio" name="10.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="10.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="10.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">10.2 — Configure Automatic Anti-Malware Signature Updates</p>
+            <label class="option"><input type="radio" name="10.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="10.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="10.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">10.3 — Disable Autorun and Autoplay for Removable Media</p>
+            <label class="option"><input type="radio" name="10.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="10.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="10.3" value="none"> Not implemented</label>
+          </div>
         </fieldset>
 
-        <fieldset class="field-group">
-          <legend>Breach history</legend>
-          <label class="option"><input type="radio" name="breach-history" value="none"> No known breaches</label>
-          <label class="option"><input type="radio" name="breach-history" value="disclosed"> Past breach, disclosed and resolved</label>
-          <label class="option"><input type="radio" name="breach-history" value="undisclosed"> Undisclosed or repeated incidents</label>
+        <fieldset class="field-group family-group">
+          <legend>Network & System Hygiene</legend>
+          <p class="family-caption">CIS Controls 1 & 11 — Enterprise Asset Inventory, Data Recovery</p>
+          <div class="safeguard-item">
+            <p class="safeguard-title">1.1 — Establish and Maintain Detailed Enterprise Asset Inventory</p>
+            <label class="option"><input type="radio" name="1.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="1.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="1.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">1.2 — Address Unauthorized Assets</p>
+            <label class="option"><input type="radio" name="1.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="1.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="1.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">11.1 — Establish and Maintain a Data Recovery Process</p>
+            <label class="option"><input type="radio" name="11.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="11.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="11.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">11.2 — Perform Automated Backups</p>
+            <label class="option"><input type="radio" name="11.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="11.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="11.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">11.3 — Protect Recovery Data</p>
+            <label class="option"><input type="radio" name="11.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="11.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="11.3" value="none"> Not implemented</label>
+          </div>
         </fieldset>
 
+        <fieldset class="field-group family-group">
+          <legend>Vendor & Service Provider Oversight</legend>
+          <p class="family-caption">CIS Control 15 — Service Provider Management</p>
+          <div class="safeguard-item">
+            <p class="safeguard-title">15.1 — Establish and Maintain an Inventory of Service Providers</p>
+            <label class="option"><input type="radio" name="15.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="15.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="15.1" value="none"> Not implemented</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group family-group">
+          <legend>Security Awareness & Incident Response</legend>
+          <p class="family-caption">CIS Controls 14 & 17 — Security Awareness and Skills Training, Incident Response Management</p>
+          <div class="safeguard-item">
+            <p class="safeguard-title">14.1 — Establish and Maintain a Security Awareness Program</p>
+            <label class="option"><input type="radio" name="14.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="14.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="14.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">14.2 — Train Workforce Members to Recognize Social Engineering Attacks</p>
+            <label class="option"><input type="radio" name="14.2" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="14.2" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="14.2" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">14.3 — Train Workforce Members on Authentication Best Practices</p>
+            <label class="option"><input type="radio" name="14.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="14.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="14.3" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">14.4 — Train Workforce on Data Handling Best Practices</p>
+            <label class="option"><input type="radio" name="14.4" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="14.4" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="14.4" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">14.6 — Train Workforce Members on Recognizing and Reporting Security Incidents</p>
+            <label class="option"><input type="radio" name="14.6" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="14.6" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="14.6" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">14.7 — Train Workforce on How to Identify and Report if Their Enterprise Assets are Missing Security Updates</p>
+            <label class="option"><input type="radio" name="14.7" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="14.7" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="14.7" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">14.8 — Train Workforce on the Dangers of Connecting to and Transmitting Enterprise Data Over Insecure Networks</p>
+            <label class="option"><input type="radio" name="14.8" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="14.8" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="14.8" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">17.1 — Designate Personnel to Manage Incident Handling</p>
+            <label class="option"><input type="radio" name="17.1" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="17.1" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="17.1" value="none"> Not implemented</label>
+          </div>
+          <div class="safeguard-item">
+            <p class="safeguard-title">17.3 — Establish and Maintain an Enterprise Process for Reporting Incidents</p>
+            <label class="option"><input type="radio" name="17.3" value="full" required> Fully implemented</label>
+            <label class="option"><input type="radio" name="17.3" value="partial"> Partially implemented</label>
+            <label class="option"><input type="radio" name="17.3" value="none"> Not implemented</label>
+          </div>
+        </fieldset>
         <button type="button" id="run-assessment" class="primary-action">Get grade</button>
       </form>
     </section>
