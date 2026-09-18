@@ -1,4 +1,4 @@
-/* ThirdPartyTrust — page layout, built on the tokens from Phase B */
+/* ThirdPartyTrust -- page layout, built on the tokens from Phase B */
 
 * {
   box-sizing: border-box;
@@ -56,6 +56,10 @@ body {
   margin-bottom: 1.5rem;
 }
 
+#assessment-form {
+  counter-reset: safeguard-counter;
+}
+
 .field-group {
   border: none;
   padding: 0;
@@ -85,6 +89,57 @@ body {
   gap: 0.5rem;
   font-weight: 400;
   margin-bottom: 0.35rem;
+}
+
+.family-group {
+  background: #FAFAFA;
+  border: 1px solid var(--fog-gray);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.family-group legend {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0 0.4rem;
+}
+
+.family-caption {
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+  color: var(--slate-gray);
+  margin: 0.25rem 0 1rem;
+}
+
+.safeguard-item {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--fog-gray);
+}
+
+.safeguard-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.safeguard-item::before {
+  counter-increment: safeguard-counter;
+  content: "Question " counter(safeguard-counter) " of 35";
+  display: block;
+  font-family: var(--font-data);
+  font-size: 0.7rem;
+  color: var(--gold-signal);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.safeguard-title {
+  font-weight: 600;
+  margin: 0 0 0.5rem;
 }
 
 input:focus-visible,
