@@ -6,13 +6,17 @@ const seal = document.querySelector(".result-seal");
 const panel = document.querySelector(".result-panel");
 const exportButton = document.getElementById("export-task-sheet");
 
-function getSelectedValue(name) {
-  const checked = form.querySelector(`input[name="${name}"]:checked`);
-  return checked ? checked.value : null;
-}
+function getAllSafeguardAnswers() {
+  const radios = form.querySelectorAll('input[type="radio"]');
+  const names = new Set();
+  radios.forEach((radio) => names.add(radio.name));
 
-function getCheckedValues(name) {
-  return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map((el) => el.value);
+  const answers = {};
+  names.forEach((name) => {
+    const checked = form.querySelector(`input[name="${name}"]:checked`);
+    answers[name] = checked ? checked.value : null;
+  });
+  return answers;
 }
 
 function clearBreakdown() {
@@ -37,6 +41,12 @@ function showIncomplete() {
   seal.append(status, copy);
 }
 
+const TIER_LABELS = {
+  full: "Fully implemented",
+  partial: "Partially implemented",
+  none: "Not implemented",
+};
+
 function renderBreakdown(result) {
   clearBreakdown();
 
@@ -45,23 +55,36 @@ function renderBreakdown(result) {
 
   const heading = document.createElement("p");
   heading.className = "breakdown-heading";
-  heading.textContent = result.framework + " — v" + result.matrixVersion;
+  heading.textContent = result.framework + " -- v" + result.matrixVersion;
   breakdown.append(heading);
 
-  result.breakdown.forEach((item) => {
-    const row = document.createElement("div");
-    row.className = "breakdown-row";
+  result.families.forEach((family) => {
+    const familyHeading = document.createElement("p");
+    familyHeading.className = "breakdown-heading";
+    familyHeading.textContent = family.name + ": " + family.points.toFixed(2) + " / " + family.maxPoints.toFixed(2);
+    breakdown.append(familyHeading);
 
-    const line = document.createElement("p");
-    line.className = "breakdown-line";
-    line.textContent = item.label + ": " + item.points + "/" + item.maxPoints;
+    const familyCitation = document.createElement("p");
+    familyCitation.className = "breakdown-citation";
+    familyCitation.textContent = family.citation;
+    breakdown.append(familyCitation);
 
-    const citation = document.createElement("p");
-    citation.className = "breakdown-citation";
-    citation.textContent = item.citation;
+    family.safeguards.forEach((safeguard) => {
+      const row = document.createElement("div");
+      row.className = "breakdown-row";
 
-    row.append(line, citation);
-    breakdown.append(row);
+      const line = document.createElement("p");
+      line.className = "breakdown-line";
+      line.textContent = safeguard.id + " -- " + safeguard.title;
+
+      const detail = document.createElement("p");
+      detail.className = "breakdown-citation";
+      const tierLabel = safeguard.tier ? TIER_LABELS[safeguard.tier] : "Not answered";
+      detail.textContent = tierLabel + " -- " + safeguard.points.toFixed(2) + " / " + safeguard.maxPoints.toFixed(2) + " pts";
+
+      row.append(line, detail);
+      breakdown.append(row);
+    });
   });
 
   panel.insertBefore(breakdown, exportButton);
@@ -90,22 +113,14 @@ function showResult(vendorName, result) {
 
 button.addEventListener("click", () => {
   const vendorName = document.getElementById("vendor-name").value.trim();
-  const dataSensitivity = getSelectedValue("data-sensitivity");
-  const permissionScope = getCheckedValues("permission-scope");
-  const encryption = getSelectedValue("encryption");
-  const breachHistory = getSelectedValue("breach-history");
+  const answers = getAllSafeguardAnswers();
 
-  if (!dataSensitivity || !encryption || !breachHistory) {
+  const result = window.ThirdPartyTrust.computeAssessment(answers);
+
+  if (!result.complete) {
     showIncomplete();
     return;
   }
-
-  const result = window.ThirdPartyTrust.computeAssessment({
-    dataSensitivity,
-    permissionScope,
-    encryption,
-    breachHistory,
-  });
 
   showResult(vendorName, result);
 });
