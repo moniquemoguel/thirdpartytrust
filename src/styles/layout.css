@@ -216,6 +216,7 @@ button:focus-visible {
 }
 
 .result-breakdown {
+  display: none;
   margin-top: 1.5rem;
   border: 1px solid var(--fog-gray);
   border-radius: 4px;
