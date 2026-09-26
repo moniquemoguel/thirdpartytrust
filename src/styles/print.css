@@ -1,4 +1,4 @@
-/* ThirdPartyTrust — print-only styles for the exported task sheet */
+/* ThirdPartyTrust -- print-only styles for the exported task sheet */
 
 @media print {
   @page {
@@ -54,6 +54,7 @@
   }
 
   .result-breakdown {
+    display: block;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     page-break-inside: avoid;
