@@ -37,7 +37,7 @@ Each safeguard is answered on a three-tier scale (Fully implemented / Partially 
 
 ## What's shown where
 
-The results seal (on screen) shows only the letter grade, vendor name, and numeric score -- deliberately minimal, since a 35-item breakdown at a glance was overwhelming. The full family-by-family, safeguard-by-safeguard breakdown is reserved for the exported task sheet: `layout.css` hides `.result-breakdown` by default, and `print.css` reveals it specifically inside the `@media print` block, so the same data exists in both places but is presented at the right level of detail for each context.
+The results seal (on screen) shows only the letter grade, vendor name and numeric score. The full family-by-family, safeguard-by-safeguard breakdown is reserved for the exported task sheet: `layout.css` hides `.result-breakdown` by default, and `print.css` reveals it specifically inside the `@media print` block, so the same data exists in both places but is presented at the right level of detail for each context.
 
 ## Export mechanism
 
