@@ -27,7 +27,7 @@ Scoring is built on CIS Critical Security Controls v8.1.2, Implementation Group 
 
 Each family is worth an equal ~16.67 of the 100-point total, regardless of how many safeguards it contains. This was a deliberate choice: weighting by safeguard count would have made Vendor & Service Provider Oversight worth only ~3 points despite being the tool's core purpose, since Control 15 has only one safeguard at the IG1 level -- every other Control 15 safeguard (contracts, classification, monitoring) sits at IG2/IG3, beyond basic cyber hygiene. Equal family weighting keeps vendor oversight meaningful in the final grade.
 
-This structure replaced an earlier 3-control version, expanded following direct instructor feedback that narrower coverage was not realistically useful to an organization.
+This structure replaced an earlier 3-control version.
 
 ## How an assessment is scored
 
