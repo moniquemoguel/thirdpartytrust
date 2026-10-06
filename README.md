@@ -55,9 +55,8 @@ safeguard and a vendor missing an entire nine-safeguard control area.
 Grade bands: A 90 and above, B 80 to under 90, C 70 to under 80, D 60 to under 70, F
 under 60.
 
-Expanded from an original 3-control version to this 40-safeguard model following direct
-instructor feedback that narrower coverage was not realistically useful to an
-organization.
+Expanded from an original 3-control version to this 40-safeguard model, since narrower
+coverage was not realistically useful to an organization.
 
 ## What this tool is, and isn't
 
@@ -76,9 +75,8 @@ this level.
 ## Additions since the proposal
 
 The original proposal scoped four assessment categories: data sensitivity, permission
-scope, encryption practices, and breach history. At the instructor's direction, the build
-was expanded instead to full CIS v8.1 IG1 coverage with a risk register, which supersedes
-that original scope. Both changes were made with instructor approval.
+scope, encryption practices, and breach history. The build was expanded instead to full
+CIS v8.1 IG1 coverage with a risk register, which supersedes that original scope.
 
 ## Credit
 
