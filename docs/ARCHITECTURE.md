@@ -57,7 +57,7 @@ Every completed assessment produces a per-family risk register. The method below
 - Customer or employee records -- High
 - Regulated data (health, financial, etc.) -- High
 
-**Risk Level.** Looked up from a 3x3 matrix, indexed by Impact (rows) and Likelihood (columns):
+**Risk Level.** Looked up from a 3x3 matrix by Impact and Likelihood:
 
 | Impact \ Likelihood | Low | Moderate | High |
 |---|---|---|---|
@@ -112,7 +112,7 @@ On screen, only the results seal is shown. The executive summary, risk register,
 
 ## Export mechanism
 
-The "Export task sheet" button calls the browser's native `window.print()` -- no PDF library is used. `print.css` hides the questionnaire, footer, and tagline, shows a "Vendor Risk Compliance Task Sheet" subtitle, and lays out the report in this order: seal, executive summary, risk register, heat map, detailed findings. The executive summary, risk register, heat map, and individual register rows are kept from splitting across pages, and `print-color-adjust: exact` keeps grade and risk colors, which browsers strip from printed pages by default.
+The "Export task sheet" button calls the browser's native `window.print()` -- no PDF library is used. `print.css` hides the questionnaire, footer, and tagline, shows a "Vendor Risk Compliance Task Sheet" subtitle, and lays out the report in this order: seal, executive summary, risk register, heat map, detailed findings. The executive summary, risk register, heat map, and individual register entries are kept from splitting across pages, and `print-color-adjust: exact` keeps grade and risk colors, which browsers strip from printed pages by default.
 
 The export button is hidden from printed output with a `!important` rule, because `ui.js` shows it on screen via an inline style that would otherwise override a normal stylesheet rule.
 
