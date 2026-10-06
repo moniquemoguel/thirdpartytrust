@@ -226,7 +226,7 @@ function renderHeatMap(result) {
   });
 
   wrap.append(grid);
-  wrap.append(makeEl("p", "breakdown-citation", "Columns: Likelihood. Rows: Impact."));
+  wrap.append(makeEl("p", "breakdown-citation", "Impact runs vertically, from High at the top to Low at the bottom. Likelihood runs horizontally, from Low at the left to High at the right."));
 
   panel.append(wrap);
 }
