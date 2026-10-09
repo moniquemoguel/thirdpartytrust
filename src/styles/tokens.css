@@ -13,6 +13,7 @@
   --verified-green: #2E6F63;
   --alert-red: #B23A32;
   --caution-amber: #B8860B;
+  --critical-crimson: #6E1B2B;
 
   /* Type -- system stacks, so nothing loads from an external font service */
   --font-display: "Arial Narrow", Arial, "Helvetica Neue", sans-serif;
