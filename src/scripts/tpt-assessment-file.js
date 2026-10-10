@@ -1,6 +1,7 @@
 // Saved assessment files for ThirdPartyTrust: build a file, validate a loaded file, and compare a prior
 // assessment with the current one. Files hold answers only; scores are always recomputed by the engine.
-// Every loaded file is untrusted input. No DOM or network access. Loads after tpt-risk.js.
+// A series ID links every assessment of one vendor, and comparisons require the same series, vendor,
+// framework, and CIS data version. Every loaded file is untrusted input. No DOM or network access.
 (function () {
   const FORMAT = "thirdpartytrust-assessment";
   const FORMAT_VERSION = 1;
@@ -30,7 +31,7 @@
     return ids;
   }
 
-  function newAssessmentId() {
+  function newId() {
     const bytes = new Uint8Array(16);
     window.crypto.getRandomValues(bytes);
     bytes[6] = (bytes[6] & 0x0f) | 0x40;
@@ -151,7 +152,10 @@
     return "thirdpartytrust-" + vendor + "-" + savedAt.slice(0, 10) + ".json";
   }
 
-  function buildFile(assessment, assessmentId) {
+  // ids: { assessmentId, seriesId }. A missing assessmentId starts a new assessment; a missing seriesId
+  // starts a new vendor series. A reassessment keeps the prior file's seriesId and vendor name.
+  function buildFile(assessment, ids) {
+    const given = ids || {};
     const errors = [];
     const clean = cleanAssessment(assessment, errors);
     const savedAt = new Date().toISOString();
@@ -159,7 +163,8 @@
     const record = {
       format: FORMAT,
       formatVersion: FORMAT_VERSION,
-      assessmentId: assessmentId || newAssessmentId(),
+      assessmentId: given.assessmentId || newId(),
+      seriesId: given.seriesId || newId(),
       savedAt,
       status,
       framework: source.framework,
@@ -190,12 +195,13 @@
     }
 
     const errors = [];
-    checkKeys(parsed, ["format", "formatVersion", "assessmentId", "savedAt", "status", "framework", "dataVersion", "methodologyVersion", "assessment"], "The file", errors);
+    checkKeys(parsed, ["format", "formatVersion", "assessmentId", "seriesId", "savedAt", "status", "framework", "dataVersion", "methodologyVersion", "assessment"], "The file", errors);
     if (parsed.formatVersion !== FORMAT_VERSION) errors.push("This file uses an unsupported format version.");
     if (parsed.framework !== source.framework) errors.push("This file was not made for " + source.framework + ".");
     if (parsed.dataVersion !== source.version) errors.push("This file was made with a different version of the CIS data.");
     const idPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
     if (typeof parsed.assessmentId !== "string" || !idPattern.test(parsed.assessmentId)) errors.push("The assessment ID is not valid.");
+    if (typeof parsed.seriesId !== "string" || !idPattern.test(parsed.seriesId)) errors.push("The assessment series ID is not valid.");
     if (typeof parsed.savedAt !== "string" || Number.isNaN(Date.parse(parsed.savedAt))) errors.push("The saved date is not valid.");
 
     const assessment = cleanAssessment(parsed.assessment, errors);
@@ -204,24 +210,38 @@
     return {
       ok: true,
       assessmentId: parsed.assessmentId,
+      seriesId: parsed.seriesId,
       savedAt: parsed.savedAt,
       methodologyChanged: parsed.methodologyVersion !== method.version,
       assessment
     };
   }
 
-  function compare(priorAssessment, currentAssessment) {
+  function vendorOf(assessment) {
+    return ((assessment && assessment.details && assessment.details.vendorName) || "").trim();
+  }
+
+  // Both records must belong to the same series and name exactly the same vendor. Returns a reason or null.
+  function seriesMismatch(prior, current) {
+    if (!prior || !current || prior.seriesId !== current.seriesId) return "This assessment is from a different assessment series.";
+    if (vendorOf(prior.assessment) === "" || vendorOf(prior.assessment) !== vendorOf(current.assessment)) return "This assessment is for a different vendor.";
+    return null;
+  }
+
+  // prior and current are { seriesId, assessment }.
+  function compare(prior, current) {
+    const mismatch = seriesMismatch(prior, current);
+    if (mismatch) return { ok: false, reason: mismatch };
+    const priorAssessment = prior.assessment;
+    const currentAssessment = current.assessment;
     const before = risk.computeAssessment(priorAssessment);
     const after = risk.computeAssessment(currentAssessment);
     if (!before.complete || !after.complete) {
       return { ok: false, reason: "Both assessments must be complete before progress can be compared." };
     }
-
     if (!before.overall || !after.overall) {
       return { ok: false, reason: "Both assessments need at least one applicable, scored Safeguard to compare." };
     }
-    const sameVendor =
-      priorAssessment.details.vendorName.trim().toLowerCase() === currentAssessment.details.vendorName.trim().toLowerCase();
 
     const controlChanges = after.controls.map((control, i) => {
       const prior = before.controls[i];
@@ -257,7 +277,6 @@
 
     return {
       ok: true,
-      sameVendor,
       priorDate: priorAssessment.details.assessmentDate,
       overall: {
         before: before.overall.hundredths,
@@ -275,5 +294,5 @@
   }
 
   window.TPT = window.TPT || {};
-  window.TPT.assessmentFile = { buildFile, parseFile, compare, newAssessmentId, MAX_FILE_CHARACTERS };
+  window.TPT.assessmentFile = { buildFile, parseFile, compare, seriesMismatch, vendorOf, newId, MAX_FILE_CHARACTERS };
 })();
