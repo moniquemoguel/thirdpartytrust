@@ -1,11 +1,17 @@
-// Progress over time for ThirdPartyTrust: combines up to 8 complete assessments of one vendor into a trend.
-// Every assessment must share the series ID, exact vendor name, framework, and CIS data version (the last
-// two are enforced when each file is loaded). Scores are recomputed from answers. No DOM or network access.
-// Loads after tpt-assessment-file.js.
+// Progress over time for ThirdPartyTrust: combines up to 8 complete assessments of one vendor into a trend
+// and reports the deltas (change since the previous and the first assessment). Every assessment must share
+// the series ID, exact vendor name, framework, and CIS data version (the last two are enforced when each
+// file is loaded). Also reports gaps to target for a single assessment. Scores are recomputed from answers.
+// No DOM or network access. Loads after tpt-assessment-file.js.
 (function () {
   const MAX_ASSESSMENTS = 8;
+  const FULL_SCORE = 10000;
   const risk = window.TPT.risk;
   const files = window.TPT.assessmentFile;
+  const method = window.TPT_METHODOLOGY;
+  const CATEGORY_IDS = window.TPT.scoring.CATEGORY_IDS;
+  const GROUPS = ["IG1", "IG2", "IG3"];
+  const RISK_LEVELS = ["Critical", "High", "Moderate", "Low", "NotApplicable"];
 
   function quarterOf(date) {
     const [year, month] = date.split("-").map(Number);
@@ -28,12 +34,35 @@
       overall: results.overall,
       groupScores: results.groupScores,
       riskCounts: results.riskCounts,
-      controls: results.controls.map((c, i) => ({ id: c.id, name: c.name, score: c.score, riskLevel: results.register[i].riskLevel }))
+      controls: results.controls.map((c, i) => ({
+        id: c.id,
+        name: c.name,
+        score: c.score,
+        riskLevel: results.register[i].riskLevel,
+        categories: c.categoryAverages
+      }))
     };
   }
 
   function difference(a, b) {
-    return a !== null && b !== null ? b - a : null;
+    return a !== null && a !== undefined && b !== null && b !== undefined ? b - a : null;
+  }
+
+  // Delta of a value since the first and since the previous point, read with the same accessor.
+  function deltas(first, previous, latest, read) {
+    return { sinceFirst: difference(read(first), read(latest)), sincePrevious: difference(read(previous), read(latest)) };
+  }
+
+  // Gaps to target, the tool's own measure: points to the next letter grade, and each Control's distance to
+  // full implementation (100). Works for a single complete assessment.
+  function gaps(results) {
+    if (!results || !results.complete || !results.overall) return null;
+    const bands = method.gradeBands.slice().sort((a, b) => a.minScore - b.minScore);
+    const next = bands.find((b) => b.minScore * 100 > results.overall.hundredths);
+    return {
+      nextGrade: next ? { grade: next.grade, pointsNeeded: next.minScore * 100 - results.overall.hundredths } : null,
+      controls: results.controls.map((c) => ({ controlId: c.id, controlName: c.name, toFull: c.score === null ? null : FULL_SCORE - c.score }))
+    };
   }
 
   // records: [{ assessmentId, seriesId, savedAt, assessment, label }], each from parseFile or the current
@@ -85,15 +114,31 @@
     const previous = points[points.length - 2];
     const latest = points[points.length - 1];
 
-    const controlChanges = latest.controls.map((c, i) => ({
-      controlId: c.id,
-      controlName: c.name,
-      sinceFirst: difference(first.controls[i].score, c.score),
-      sincePrevious: difference(previous.controls[i].score, c.score),
-      riskFirst: first.controls[i].riskLevel,
-      riskPrevious: previous.controls[i].riskLevel,
-      riskLatest: c.riskLevel
-    }));
+    const controlChanges = latest.controls.map((c, i) => {
+      const categories = {};
+      CATEGORY_IDS.forEach((id) => {
+        categories[id] = deltas(first, previous, latest, (p) => p.controls[i].categories[id]);
+      });
+      return {
+        controlId: c.id,
+        controlName: c.name,
+        sinceFirst: difference(first.controls[i].score, c.score),
+        sincePrevious: difference(previous.controls[i].score, c.score),
+        riskFirst: first.controls[i].riskLevel,
+        riskPrevious: previous.controls[i].riskLevel,
+        riskLatest: c.riskLevel,
+        categories
+      };
+    });
+
+    const groupChanges = {};
+    GROUPS.forEach((g) => {
+      groupChanges[g] = deltas(first, previous, latest, (p) => (p.groupScores[g] ? p.groupScores[g].hundredths : null));
+    });
+    const riskCountChanges = {};
+    RISK_LEVELS.forEach((level) => {
+      riskCountChanges[level] = deltas(first, previous, latest, (p) => p.riskCounts[level]);
+    });
 
     const latestPair = files.compare(included[included.length - 2].record, included[included.length - 1].record);
 
@@ -106,11 +151,13 @@
         sinceFirst: latest.overall.hundredths - first.overall.hundredths,
         sincePrevious: latest.overall.hundredths - previous.overall.hundredths
       },
+      groupChanges,
+      riskCountChanges,
       controlChanges,
       safeguardsSincePrevious: latestPair.ok ? latestPair.safeguards : null,
       excluded
     };
   }
 
-  window.TPT.progress = { buildTrend, quarterOf, MAX_ASSESSMENTS };
+  window.TPT.progress = { buildTrend, gaps, quarterOf, MAX_ASSESSMENTS };
 })();
