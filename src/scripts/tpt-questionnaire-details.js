@@ -1,5 +1,6 @@
 // Assessment details for ThirdPartyTrust: vendor and respondent fields, data sensitivity, the attestation,
-// and the "How to answer" guide. Loads after tpt-dom.js and before tpt-questionnaire.js.
+// and the "How to answer" guide. On a reassessment the vendor name is locked so progress compares the same
+// company. Loads after tpt-dom.js and before tpt-questionnaire.js.
 (function () {
   const { el, hasText, textField } = window.TPT.dom;
   const method = window.TPT_METHODOLOGY;
@@ -13,6 +14,7 @@
     { id: "reviewer", label: "Reviewer", missing: "Enter the reviewer." },
     { id: "assessmentDate", label: "Assessment date", missing: "Enter the assessment date.", type: "date" }
   ];
+  const VENDOR_LOCKED = "The vendor name is locked to match earlier assessments, so progress compares the same company.";
   const ATTESTATION =
     "I confirm these answers are accurate to the best of my knowledge, reflect the vendor's current practices, and have been reviewed by the reviewer named above.";
 
@@ -20,7 +22,8 @@
     return FIELDS.some((f) => !hasText(state.details[f.id])) || !state.dataSensitivity || state.details.attested !== true;
   }
 
-  function render(state, showErrors, changed) {
+  function render(state, showErrors, changed, renderOptions) {
+    const vendorLocked = Boolean(renderOptions && renderOptions.vendorLocked);
     const panel = el("section", { className: "details-panel", id: "details", tabindex: "-1", "aria-labelledby": "details-heading" }, [
       el("h2", { id: "details-heading", text: "Assessment details" })
     ]);
@@ -34,6 +37,12 @@
       );
     });
     panel.append(grid);
+    if (vendorLocked) {
+      const vendorInput = grid.querySelector("#detail-vendorName");
+      vendorInput.readOnly = true;
+      vendorInput.setAttribute("aria-describedby", "vendor-locked");
+      vendorInput.parentElement.append(el("p", { className: "field-hint", id: "vendor-locked", text: VENDOR_LOCKED }));
+    }
 
     const options = el("div", { className: "sensitivity-options" });
     method.dataSensitivity.options.forEach((o) => {
