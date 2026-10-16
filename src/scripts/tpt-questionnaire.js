@@ -28,6 +28,7 @@
   let state = emptyAssessment();
   let current = 0;
   let showErrors = false;
+  let options = {};
   let onChange = () => {};
   let root;
 
@@ -240,7 +241,7 @@
 
   function render() {
     root.textContent = "";
-    root.append(details.render(state, showErrors, changed), details.renderGuide(), renderWorkspace());
+    root.append(details.render(state, showErrors, changed, options), details.renderGuide(), renderWorkspace());
     renderControl();
     updateNav();
   }
@@ -271,14 +272,17 @@
       onChange = changeHandler || (() => {});
       render();
     },
-    load(assessment) {
+    // loadOptions: { vendorLocked } locks the vendor name for a reassessment.
+    load(assessment, loadOptions) {
       state = assessment;
+      options = loadOptions || {};
       showErrors = false;
       current = 0;
       render();
     },
     reset() {
       state = emptyAssessment();
+      options = {};
       showErrors = false;
       current = 0;
       render();
