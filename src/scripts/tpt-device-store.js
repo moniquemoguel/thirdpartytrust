@@ -2,7 +2,7 @@
 // IndexedDB only after the user sets a passphrase; nothing is ever sent anywhere. Key: PBKDF2-HMAC-SHA-256
 // (count stored with the data so it can be raised later). Data: AES-GCM, 256-bit key, a fresh 12-byte IV for
 // every write, and the stored header bound in as associated data so any edit makes decryption fail.
-// Passphrase rules follow NIST SP 800-63B-4. Stored files are re-validated by tpt-assessment-file.js on load.
+// Passphrases are 15 to 128 characters with no composition rules. Stored files are re-validated on load.
 (function () {
   const DB_NAME = "thirdpartytrust";
   const STORE = "vault";
