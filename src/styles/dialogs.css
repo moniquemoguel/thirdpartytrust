@@ -1,0 +1,162 @@
+/* ThirdPartyTrust -- dialogs for Save, Open, passphrase, unlock, and the saved list. Built on tokens.css;
+   text colors use the same measured pairs as app.css. */
+
+.tpt-dialog {
+  width: min(560px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  border: none;
+  border-top: 4px solid var(--gold-signal);
+  border-radius: 4px;
+  padding: 1.5rem;
+  color: var(--ink-black);
+  background: var(--paper-white);
+  font-family: var(--font-body);
+}
+
+.tpt-dialog::backdrop {
+  background: color-mix(in srgb, var(--ink-black) 65%, transparent);
+}
+
+.tpt-dialog h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0 0 0.75rem;
+}
+
+.dialog-intro {
+  color: var(--charcoal);
+  margin: 0 0 1rem;
+}
+
+.dialog-warning {
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.75rem;
+  border-left: 4px solid var(--alert-red);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.tpt-dialog .field {
+  margin-bottom: 0.9rem;
+}
+
+.dialog-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.dialog-row .applicable-switch {
+  margin-top: 0;
+}
+
+.dialog-choices {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.dialog-choice {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--fog-gray);
+  border-left: 4px solid var(--ink-black);
+  border-radius: 3px;
+  background: var(--paper-white);
+  color: var(--ink-black);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dialog-choice:hover {
+  background: var(--fog-gray);
+}
+
+.dialog-choice-label {
+  font-weight: 700;
+}
+
+.dialog-choice-text {
+  color: var(--charcoal);
+  font-size: 0.88rem;
+}
+
+.dialog-message {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.dialog-message.is-error {
+  color: var(--alert-red);
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.button-danger {
+  border-color: var(--alert-red);
+  color: var(--alert-red);
+  background: var(--paper-white);
+}
+
+.button-danger:hover {
+  background: var(--alert-red);
+  color: var(--paper-white);
+}
+
+.tpt-dialog :focus-visible {
+  outline: 2px solid var(--gold-signal);
+  outline-offset: 2px;
+}
+
+/* Saved on this device */
+
+.saved-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.saved-item {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--fog-gray);
+  border-radius: 3px;
+}
+
+.saved-item input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--ink-black);
+}
+
+.saved-text {
+  flex: 1;
+  display: grid;
+  font-size: 0.9rem;
+}
+
+.saved-text span {
+  color: var(--charcoal);
+}
+
+.saved-item .button {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
