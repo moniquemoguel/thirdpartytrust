@@ -103,5 +103,5 @@
     return true;
   }
 
-  window.TPT.questionnaireDetails = { render, renderGuide, focusFirstMissing, isMissing };
+  window.TPT.questionnaireDetails = { render, renderGuide, focusFirstMissing, isMissing, ATTESTATION };
 })();
