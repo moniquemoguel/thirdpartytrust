@@ -1,0 +1,343 @@
+/* ThirdPartyTrust -- results report on screen: seal, sections, tables, heat map, and trend chart. Built on
+   tokens.css. Risk colors carry their level as text, so color is never the only signal. */
+
+#results:empty {
+  display: none;
+}
+
+.report {
+  margin-top: 2.5rem;
+  border-top: 4px solid var(--gold-signal);
+  padding-top: 1.5rem;
+}
+
+.report-seal {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  background: var(--ink-black);
+  color: var(--paper-white);
+  padding: 1.5rem;
+  border-radius: 4px;
+}
+
+.seal-grade {
+  margin: 0;
+  width: 5.5rem;
+  height: 5.5rem;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--gold-signal);
+  border-radius: 50%;
+  color: var(--gold-signal);
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.seal-text p {
+  margin: 0.2rem 0;
+}
+
+.seal-score {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.seal-critical,
+.seal-vendor {
+  color: var(--fog-gray);
+}
+
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.report-exec {
+  display: none;
+}
+
+.report-section {
+  margin-top: 2rem;
+}
+
+.report-section h2,
+.report-collapsible > summary {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--ink-black);
+}
+
+.report-collapsible > summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.report-section h3 {
+  font-size: 1rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.report-note,
+.report-label {
+  color: var(--charcoal);
+  font-size: 0.85rem;
+}
+
+.report-credit {
+  font-size: 0.85rem;
+}
+
+.exec-tiles,
+.group-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.exec-tile {
+  border: 1px solid var(--fog-gray);
+  border-top: 3px solid var(--ink-black);
+  padding: 0.75rem;
+}
+
+.exec-tile p {
+  margin: 0;
+}
+
+.exec-tile-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.exec-tile-label {
+  color: var(--charcoal);
+  font-size: 0.85rem;
+}
+
+.exec-exposure {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.exec-exposure-label {
+  margin: 0 0.5rem 0 0;
+  font-weight: 700;
+}
+
+.progress-summary {
+  font-weight: 700;
+}
+
+/* Tables scroll inside their own box on narrow screens */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.report-table th,
+.report-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--fog-gray);
+}
+
+.report-table th {
+  background: var(--ink-black);
+  color: var(--paper-white);
+  font-weight: 600;
+}
+
+/* Risk levels */
+
+.risk-badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.risk-low {
+  background: var(--verified-green);
+  color: var(--paper-white);
+}
+
+.risk-moderate {
+  background: var(--caution-amber);
+  color: var(--ink-black);
+}
+
+.risk-high {
+  background: var(--alert-red);
+  color: var(--paper-white);
+}
+
+.risk-critical {
+  background: var(--critical-crimson);
+  color: var(--paper-white);
+}
+
+.risk-none {
+  background: var(--fog-gray);
+  color: var(--charcoal);
+}
+
+/* Heat map: Impact runs from Critical at the top to Low at the bottom */
+
+.heatmap {
+  display: grid;
+  grid-template-columns: 2rem 5.5rem repeat(4, minmax(4.5rem, 1fr));
+  gap: 4px;
+  max-width: 760px;
+}
+
+.heatmap p {
+  margin: 0;
+}
+
+.heatmap-axis-impact {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  justify-self: center;
+  align-self: center;
+  font-weight: 700;
+}
+
+.heatmap-level {
+  align-self: center;
+  font-size: 0.85rem;
+  color: var(--charcoal);
+}
+
+.heatmap-level-likelihood {
+  text-align: center;
+}
+
+.heatmap-corner {
+  grid-column: 1 / span 2;
+}
+
+.heatmap-axis-likelihood {
+  grid-column: 3 / span 4;
+  text-align: center;
+  font-weight: 700;
+}
+
+.heatmap-cell {
+  min-height: 4.5rem;
+  padding: 0.4rem;
+  border-radius: 3px;
+  display: grid;
+  align-content: start;
+  gap: 0.2rem;
+}
+
+.heatmap-cell-level {
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.heatmap-cell-controls {
+  font-size: 0.8rem;
+}
+
+/* Trend chart */
+
+.trend-wrap {
+  max-width: 680px;
+  margin: 1rem 0;
+}
+
+.trend-chart {
+  width: 100%;
+  height: auto;
+}
+
+.trend-grid {
+  stroke: var(--fog-gray);
+  stroke-width: 1;
+}
+
+.trend-line {
+  fill: none;
+  stroke: var(--ink-black);
+  stroke-width: 3;
+}
+
+.trend-point {
+  fill: var(--gold-signal);
+  stroke: var(--ink-black);
+  stroke-width: 2;
+}
+
+.trend-tick,
+.trend-value,
+.trend-axis {
+  fill: var(--charcoal);
+  font-family: var(--font-body);
+  font-size: 12px;
+}
+
+.trend-value,
+.trend-axis {
+  fill: var(--ink-black);
+  font-weight: 700;
+}
+
+/* Findings */
+
+.finding-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.finding {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--fog-gray);
+}
+
+.finding p {
+  margin: 0.15rem 0;
+}
+
+.finding-line {
+  color: var(--charcoal);
+  font-size: 0.88rem;
+}
+
+.method-list {
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 860px) {
+  .report-seal {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .heatmap {
+    grid-template-columns: 1.5rem 4.5rem repeat(4, minmax(3.5rem, 1fr));
+  }
+}
