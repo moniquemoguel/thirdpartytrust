@@ -1,93 +1,96 @@
 # ThirdPartyTrust
 
-A browser-only vendor risk scoring tool for small businesses.
+A browser-only vendor security assessment for small businesses, built on the CIS Critical Security
+Controls v8.1.
 
-**Live demo:** https://moniquemoguel.github.io/thirdpartytrust/src/index.html
+**Live tool:** https://moniquemoguel.github.io/thirdpartytrust/src/index.html
 
 ## What it does
 
-Small businesses adopt new software constantly, usually without any way to judge what
-that vendor does with their data. ThirdPartyTrust turns a short questionnaire into an
-instant letter grade, a plain-English breakdown of the score, a per-family risk register
-with a Likelihood x Impact heat map, and an exportable compliance task sheet -- all of it
-running in the browser, with nothing sent to a server.
+Small businesses adopt new software constantly, usually without a practical way to judge how each
+vendor protects their data. ThirdPartyTrust rates a vendor against all 153 CIS Safeguards and
+produces a score, a letter grade, a risk rating for each CIS Control, and an exportable report. It
+runs entirely in the browser; nothing entered is sent to a server.
 
-## A note for anyone testing this
+## How it works
 
-This tool covers 40 safeguards from CIS Critical Security Controls v8.1, Implementation
-Group 1. All 40 safeguard questions, plus the vendor name, category, and data-sensitivity
-fields, must be answered to produce a grade; if any are left blank, the results panel
-shows "INCOMPLETE" rather than a grade -- this is expected behavior, not an error.
+1. **Details:** enter the vendor, the service provided, the respondent and reviewer, and the kind
+   of data the vendor handles.
+2. **Answer:** rate each Safeguard in the four CIS categories, or mark it as not applying and
+   explain why. No scores are shown while answering.
+3. **Results:** get the overall score and grade, Implementation Group scores, a Control
+   scorecard, a risk register, and an Impact and Likelihood heat map.
+4. **Report and save:** export the report as a PDF and save the assessment to continue later or to
+   compare progress next time.
 
-## Build Progress
+## Framework
 
-- [x] Project scaffold and documentation structure
-- [x] Brand and UI system
-- [x] Interface assembly
-- [x] Scoring engine
-- [x] Governance matrix (CIS Critical Security Controls v8.1, Implementation Group 1 --
-      40 safeguards, 10 controls, 6 families)
-- [x] Risk register, heat map, and executive summary
-- [x] Export and reporting
-- [ ] Documentation and polish (in progress)
-- [ ] Testing evidence
+- **Scope:** all 18 CIS Controls and all 153 Safeguards in CIS Controls v8.1 (56 in Implementation
+  Group 1, 74 added at IG2, 23 added at IG3). Control and Safeguard titles and descriptions are
+  reproduced verbatim, with each Safeguard's Asset Type and Security Function.
+- **Scoring:** the CIS Advanced Scoring Method. Each Safeguard is rated in four categories (Policy
+  Defined, Control Implemented, Control Automated, Control Reported) using CIS's own answer
+  options, averaged by Safeguard, then by Control, then overall. Not Applicable ratings are left
+  out of the calculation.
+- **Verified:** the Control and Safeguard data was extracted from the official CIS guide twice,
+  from the Control chapters and from the appendix index, and compared field by field.
 
-## Stack
+## The tool's own method
 
-Vanilla JavaScript, CSS custom properties, hosted on GitHub Pages. No external scripts,
-fonts, or network calls of any kind; nothing entered into the form is stored or
-transmitted.
+CIS does not define a letter grade or a risk-rating method. These are the tool's own and are
+labeled as such in every report:
 
-## Compliance framework
+- **Letter grade:** A 90 and above, B 80, C 70, D 60, F below 60, from the overall score, issued
+  only when the assessment is complete.
+- **Impact:** set by the kind of data the vendor handles (Low, Moderate, High, Critical).
+- **Likelihood:** set for each Control by how widely its Safeguards are implemented; any IG1
+  Safeguard not implemented makes it Critical.
+- **Risk level:** Impact combined with Likelihood on four levels: Low, Moderate, High, Critical.
+- **Recommended actions, Implementation Group scores, and gap to target** (points to the next
+  grade and each Control's distance to full implementation).
 
-Scoring is mapped to CIS Critical Security Controls v8.1, Implementation Group 1 -- CIS's
-own designation for organizations with limited IT and security resources. Coverage spans
-all 40 IG1 safeguards in 10 of the 18 CIS Controls (1, 3, 5, 6, 7, 10, 11, 14, 15, 17),
-organized into 6 plain-English families. The remaining 16 IG1 safeguards, in Controls 2,
-4, 8, 9, and 12, are not assessed.
+## Progress over time
 
-Each safeguard is worth an equal 2.50 points (1.25 if partially implemented), for a total
-of 100. CIS does not define weights or scoring for its safeguards; equal weighting is
-this tool's own methodology, chosen after an earlier equal-per-family scheme produced
-nearly identical scores (83.33 vs. 83.34) for a vendor missing only one inventory
-safeguard and a vendor missing an entire nine-safeguard control area.
+A vendor can be reassessed, for example each quarter. Loading up to 8 earlier assessments of the
+same vendor adds a Progress over time section with a trend chart and the change since the previous
+and the first assessment: overall, per Control, per CIS category, by Implementation Group, and by
+risk level. Assessments are compared only when they share the same assessment series, the exact
+vendor name, and the same CIS data version.
 
-Grade bands: A 90 and above, B 80 to under 90, C 70 to under 80, D 60 to under 70, F
-under 60.
+## Saving and privacy
 
-Expanded from an original 3-control version to this 40-safeguard model, since narrower
-coverage was not realistically useful to an organization.
+- **Download file (recommended):** the assessment is saved as a file on the user's own computer.
+  Scores are always recalculated from the answers when a file is loaded, and every loaded file is
+  checked before use.
+- **Save to this device (optional):** an encrypted copy is kept in the browser, protected by a
+  passphrase of 15 to 128 characters. Encryption uses AES-GCM with a 256-bit key derived through
+  1,000,000 rounds of PBKDF2. Saved assessments lock after 15 minutes of inactivity, and a
+  forgotten passphrase cannot be recovered.
+- **No server, no accounts, no tracking.** A Content-Security-Policy allows only the site's own
+  files to run and blocks the page from sending data anywhere.
 
 ## What this tool is, and isn't
 
-ThirdPartyTrust is a self-assessment questionnaire, not an automated scanner. It never
-visits or independently verifies the vendor's actual security posture -- every grade
-reflects only what the person filling out the form reports to be true.
+ThirdPartyTrust is a self-assessment, not a scanner. It never connects to or tests the vendor's
+systems, and every result reflects what the respondent reports to be true.
 
-## Risk register
+## Project structure
 
-Every completed assessment includes a one-page risk register: each of the 6 families
-gets a Likelihood (set by its weakest safeguard), an Impact (from a single vendor-level
-data-sensitivity question), and a resulting Risk Level, plus a Likelihood x Impact heat
-map. This methodology is the tool's own; CIS does not prescribe a risk-scoring method at
-this level.
+- `src/index.html` -- the page
+- `src/data/` -- CIS Controls v8.1 data and the tool's own methodology
+- `src/scripts/` -- scoring and risk engine, saved assessments, progress, encrypted storage,
+  questionnaire, report, and app wiring
+- `src/styles/` -- brand tokens and page, dialog, report, and print styles
+- `docs/ARCHITECTURE.md` -- technical detail
 
-## Additions since the proposal
+Plain JavaScript and CSS on GitHub Pages, with no build step and no external scripts, fonts, or
+network calls.
 
-The original proposal scoped four assessment categories: data sensitivity, permission
-scope, encryption practices, and breach history. The build was expanded instead to full
-CIS v8.1 IG1 coverage with a risk register, which supersedes that original scope.
+## Credit and license
 
-## Credit
-
-Safeguard titles are from CIS Critical Security Controls(R) v8.1, Center for Internet
-Security, Inc., licensed under CC BY-NC-ND 4.0. See
+Safeguard titles and descriptions are from CIS Critical Security Controls(R) v8.1, Center for
+Internet Security, Inc., licensed under CC BY-NC-ND 4.0. See
 [cisecurity.org/controls](https://www.cisecurity.org/controls/) and the
-[license terms](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode). This
-license covers the CIS content only; the code in this repository is separately licensed
-under the terms in LICENSE.
-
-## Documentation
-
-See docs/ARCHITECTURE.md for a full technical breakdown of how scoring, governance
-mapping, risk register, and export work.
+[license terms](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode). That license covers
+the CIS content only; the code in this repository is licensed separately under the terms in
+LICENSE.
