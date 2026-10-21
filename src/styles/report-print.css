@@ -1,0 +1,80 @@
+/* ThirdPartyTrust -- exported PDF. Printing shows only the report: the questionnaire, buttons, and progress
+   bar are hidden, the executive summary appears, and colors print as they show on screen. */
+
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-size: 10.5pt;
+  }
+
+  #questionnaire,
+  .progress-bar,
+  .report-actions,
+  .app-intro,
+  .site-footer,
+  .tpt-dialog {
+    display: none !important;
+  }
+
+  .print-subtitle {
+    display: block;
+    margin: 0.25rem 0 0;
+    color: var(--fog-gray);
+  }
+
+  .app {
+    padding: 0;
+    max-width: none;
+  }
+
+  .report {
+    margin-top: 0;
+    border-top: none;
+  }
+
+  .report-exec {
+    display: block;
+  }
+
+  .report-collapsible > summary {
+    list-style: none;
+  }
+
+  .report-collapsible > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .report-seal,
+  .report-exec,
+  .exec-tile,
+  .heatmap,
+  .trend-wrap,
+  .finding,
+  .report-table tr {
+    break-inside: avoid;
+  }
+
+  .report-section h2,
+  .report-collapsible > summary,
+  .report-section h3 {
+    break-after: avoid;
+  }
+
+  .report-findings,
+  .report-na,
+  .report-method {
+    break-before: page;
+  }
+
+  .table-wrap {
+    overflow: visible;
+  }
+}
